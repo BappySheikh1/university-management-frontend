@@ -1,11 +1,12 @@
 import { Layout } from "antd";
-import Sidebar from "./Sidebar";
+import Sidebar from "../../components/ui/Sidebar";
+import Contents from "@/components/ui/Contents";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Layout hasSider>
       <Sidebar />
-      {children}
+      <Contents>{children}</Contents>
     </Layout>
   );
 };
