@@ -1,10 +1,16 @@
+import { Col, Row } from "antd";
 
 const LoginPage = () => {
-    return (
-        <div>
-            <h1>This is login page</h1>
-        </div>
-    );
+  return (
+    <Row>
+      <Col sm={12} md={16} lg={18}>
+        Col
+      </Col>
+      <Col sm={12} md={8} lg={8}>
+        Col
+      </Col>
+    </Row>
+  );
 };
 
 export default LoginPage;
