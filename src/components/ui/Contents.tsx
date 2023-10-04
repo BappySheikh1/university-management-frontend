@@ -2,6 +2,7 @@
 
 import { Layout } from "antd";
 import UMBreadCrumb from "./UMBreadCrumb";
+import HeaderPage from "./Header";
 
 const { Content } = Layout;
 const Contents = ({ children }: { children: React.ReactNode }) => {
@@ -13,6 +14,8 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
         color: "black",
       }}
     >
+      <HeaderPage />
+      
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
