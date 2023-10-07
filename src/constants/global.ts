@@ -12,3 +12,53 @@ export const genderOptions = [
         value:"others"
     },
 ]
+
+export const DepartmentOptions = [
+    {
+        label: "HR",
+        value:"hr manager"
+    },
+    {
+        label: "Finance",
+        value:"finance"
+    },
+    {
+        label: "Management Department",
+        value:"management department"
+    },
+]
+
+export const bloodGroupOptions = [
+	{
+		label: 'A+',
+		value: 'A+',
+	},
+	{
+		label: 'A-',
+		value: 'A-',
+	},
+	{
+		label: 'B+',
+		value: 'B+',
+	},
+	{
+		label: 'B-',
+		value: 'B-',
+	},
+	{
+		label: 'AB+',
+		value: 'AB+',
+	},
+	{
+		label: 'AB-',
+		value: 'AB-',
+	},
+	{
+		label: 'O+',
+		value: 'O+',
+	},
+	{
+		label: 'O-',
+		value: 'O-',
+	},
+];
