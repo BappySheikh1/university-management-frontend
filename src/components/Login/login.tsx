@@ -1,12 +1,12 @@
 "use client";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import loginImage from "@/assets/Privacy policy-rafiki.png";
 import Image from "next/image";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
-import {  storeUserInfo } from "@/services/authService";
+import { storeUserInfo } from "@/services/authService";
 import { useRouter } from "next/navigation";
 
 type FormValues = {
@@ -23,9 +23,10 @@ const LoginPage = () => {
     try {
       const res = await userLogin({ ...data }).unwrap();
       console.log(res);
-      
+
       if (res?.accessToken) {
         router.push("/profile");
+        message.success("User Logged In successfully");
       }
       storeUserInfo({ accessToken: res?.accessToken });
       // console.log(res);
