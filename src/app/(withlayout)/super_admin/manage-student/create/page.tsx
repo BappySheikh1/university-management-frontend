@@ -1,8 +1,9 @@
+"use client"
 import StepperForm from "@/components/StepperForm/StepperForm";
 import StudentBasicInfo from "@/components/StudentForm/StudentBasicInfo";
-import StudentGuardianInfo from "@/components/StudentForm/StudentGuardian";
+import GuardianInfo from "@/components/StudentForm/StudentGuardian";
 import StudentInfo from "@/components/StudentForm/StudentInfo";
-import StudentLocalGuardianInfo from "@/components/StudentForm/StudentLocalGuardianInfo";
+import LocalGuardianInfo from "@/components/StudentForm/StudentLocalGuardianInfo";
 import React from "react";
 
 const CreateStudentPage = () => {
@@ -17,11 +18,11 @@ const CreateStudentPage = () => {
     },
     {
       title: "Guardian Information",
-      content: <StudentGuardianInfo />,
+      content: <GuardianInfo />,
     },
     {
       title: "Local Guardian Information",
-      content: <StudentLocalGuardianInfo />,
+      content: <LocalGuardianInfo />,
     },
   ];
   return (
