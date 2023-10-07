@@ -12,6 +12,10 @@ const ManageAdminPage = () => {
             label: "super_admin",
             link: "/super_admin",
           },
+          {
+            label: "admin",
+            link: "/super_admin/admin",
+          },
         ]}
       />
        
