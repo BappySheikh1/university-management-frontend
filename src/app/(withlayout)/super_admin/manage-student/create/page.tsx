@@ -4,7 +4,7 @@ import StudentBasicInfo from "@/components/StudentForm/StudentBasicInfo";
 import GuardianInfo from "@/components/StudentForm/StudentGuardian";
 import StudentInfo from "@/components/StudentForm/StudentInfo";
 import LocalGuardianInfo from "@/components/StudentForm/StudentLocalGuardianInfo";
-import React from "react";
+
 
 const CreateStudentPage = () => {
   const steps = [
@@ -29,8 +29,8 @@ const CreateStudentPage = () => {
   const handleStudentSubmit = async (data: any) => {
     try {
       console.log(data);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -38,7 +38,9 @@ const CreateStudentPage = () => {
     <div>
       <h1>Create Student</h1>
       <StepperForm
-        submitHandler={(value) => handleStudentSubmit(value)}
+        submitHandler={(value) => {
+          handleStudentSubmit(value);
+        }}
         steps={steps}
       />
     </div>

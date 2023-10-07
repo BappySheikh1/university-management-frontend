@@ -13,16 +13,17 @@ interface ISteps {
 interface IStepsProps {
   steps: ISteps[];
   submitHandler: (e: any) => void;
-  navigateLink: string;
+  navigateLink?: string;
 }
+
 const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
+  const router = useRouter();
+
   const [current, setCurrent] = useState<number>(
     !!getFromLocalStorage("step")
       ? Number(JSON.parse(getFromLocalStorage("step") as string).step)
       : 0
   );
-
-  const router = useRouter();
 
   useEffect(() => {
     setToLocalStorage("step", JSON.stringify({ step: current }));
@@ -37,7 +38,9 @@ const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
   };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
+
   const methods = useForm();
+
   const { handleSubmit, reset } = methods;
 
   const handleStudentOnSubmit = (data: any) => {
@@ -55,7 +58,7 @@ const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
           <div>{steps[current].content}</div>
           <div style={{ marginTop: 24 }}>
             {current < steps.length - 1 && (
-              <Button type="primary" htmlType="submit" onClick={() => next()}>
+              <Button type="primary" onClick={() => next()}>
                 Next
               </Button>
             )}

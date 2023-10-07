@@ -6,8 +6,6 @@ import React from "react";
 const ManageDepartmentPage = () => {
   return (
     <div>
-      <h1> Department List</h1>
-
       <ActionBar title="Department List">
         <Link href={`/super_admin/department/create`}>
           <Button>Create Department</Button>
