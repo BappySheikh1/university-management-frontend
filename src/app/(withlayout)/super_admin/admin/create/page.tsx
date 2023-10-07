@@ -11,6 +11,8 @@ import {
   bloodGroupOptions,
   genderOptions,
 } from "@/constants/global";
+import { adminSchema } from "@/schemas/admin";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row } from "antd";
 import React from "react";
 
@@ -40,7 +42,7 @@ const CreateAdminPage = () => {
       <h1>Create Admin</h1>
 
       <div>
-        <Form submitHandler={onSubmit}>
+        <Form submitHandler={onSubmit} resolver={yupResolver(adminSchema)}>
           <div
             style={{
               border: "1px solid #d9d9d9",

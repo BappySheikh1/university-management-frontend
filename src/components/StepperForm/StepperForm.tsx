@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, message, Steps, theme } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
+import { useRouter } from "next/router";
 
 interface ISteps {
   title?: string;
@@ -10,9 +12,21 @@ interface ISteps {
 
 interface IStepsProps {
   steps: ISteps[];
+  submitHandler: (e: any) => void;
+  navigateLink: string;
 }
-const StepperForm = ({ steps }: IStepsProps) => {
-  const [current, setCurrent] = useState(0);
+const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
+  const [current, setCurrent] = useState<number>(
+    !!getFromLocalStorage("step")
+      ? Number(JSON.parse(getFromLocalStorage("step") as string).step)
+      : 0
+  );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setToLocalStorage("step", JSON.stringify({ step: current }));
+  }, [current]);
 
   const next = () => {
     setCurrent(current + 1);
@@ -24,22 +38,31 @@ const StepperForm = ({ steps }: IStepsProps) => {
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
   const methods = useForm();
+  const { handleSubmit, reset } = methods;
+
+  const handleStudentOnSubmit = (data: any) => {
+    submitHandler(data);
+    reset();
+    setToLocalStorage("step", JSON.stringify({ step: 0 }));
+    navigateLink && router.push(navigateLink);
+  };
 
   return (
     <>
       <Steps current={current} items={items} />
       <FormProvider {...methods}>
-        <form>
+        <form onSubmit={handleSubmit(handleStudentOnSubmit)}>
           <div>{steps[current].content}</div>
           <div style={{ marginTop: 24 }}>
             {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => next()}>
+              <Button type="primary" htmlType="submit" onClick={() => next()}>
                 Next
               </Button>
             )}
             {current === steps.length - 1 && (
               <Button
                 type="primary"
+                htmlType="submit"
                 onClick={() => message.success("Processing complete!")}
               >
                 Done

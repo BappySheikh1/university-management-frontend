@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import StepperForm from "@/components/StepperForm/StepperForm";
 import StudentBasicInfo from "@/components/StudentForm/StudentBasicInfo";
 import GuardianInfo from "@/components/StudentForm/StudentGuardian";
@@ -25,10 +25,22 @@ const CreateStudentPage = () => {
       content: <LocalGuardianInfo />,
     },
   ];
+
+  const handleStudentSubmit = async (data: any) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>Create Student</h1>
-      <StepperForm steps={steps} />
+      <StepperForm
+        submitHandler={(value) => handleStudentSubmit(value)}
+        steps={steps}
+      />
     </div>
   );
 };
