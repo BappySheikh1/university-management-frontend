@@ -1,7 +1,9 @@
 "use client";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormSelectField from "@/components/Forms/FormSelectField";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import { genderOptions } from "@/constants/global";
 import { Button, Col, Row } from "antd";
 import React from "react";
 
@@ -104,6 +106,17 @@ const CreateAdminPage = () => {
                   name="password"
                   size="large"
                   label="Password"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
+                <FormSelectField size="large" name="admin.gender" options={genderOptions}
+                label="Gender" placeholder="Select"
                 />
               </Col>
             </Row>
