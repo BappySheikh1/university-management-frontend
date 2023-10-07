@@ -1,4 +1,5 @@
 import ActionBar from "@/components/ui/ActionBar";
+import UMTable from "@/components/ui/UMTable";
 import { Button } from "antd";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +11,9 @@ const ManageDepartmentPage = () => {
         <Link href={`/super_admin/department/create`}>
           <Button>Create Department</Button>
         </Link>
+
       </ActionBar>
+        <UMTable />
     </div>
   );
 };
