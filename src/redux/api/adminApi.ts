@@ -32,7 +32,19 @@ export const adminApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.admin],
     }),
+
+    admin: build.query({
+      query: (data) => {
+        return {
+          url: `${ADMIN_URL}/${data.id}`,
+          method: "GET",
+        };
+      },
+     
+      providesTags: [tagTypes.admin],
+    }),
+
   }),
 });
 
-export const { useAdminsQuery, useAddAdminWithFormDataMutation } = adminApi;
+export const { useAdminsQuery, useAddAdminWithFormDataMutation ,useAdminQuery} = adminApi;
