@@ -12,7 +12,10 @@ import Link from "next/link";
 import { useState } from "react";
 import ActionBar from "@/components/ui/ActionBar";
 import dayjs from "dayjs";
-import { useDepartmentQuery } from "@/redux/api/departmentApi";
+import {
+  useDeleteDepartmentMutation,
+  useDepartmentQuery,
+} from "@/redux/api/departmentApi";
 import { useDebounced } from "@/redux/hooks";
 
 const ManageDepartmentPage = () => {
@@ -23,6 +26,7 @@ const ManageDepartmentPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [deleteDepartment] = useDeleteDepartmentMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -42,6 +46,18 @@ const ManageDepartmentPage = () => {
 
   const departments = data?.departments;
   const meta = data?.meta;
+
+  const deleteHandler = async (id: string) => {
+    message.loading("Deleting.....");
+    try {
+      //   console.log(data);
+      await deleteDepartment(id);
+      message.success("Department deleted successfully");
+    } catch (err: any) {
+      //   console.error(err.message);
+      message.error(err.message);
+    }
+  };
 
   const columns = [
     {
@@ -72,7 +88,11 @@ const ManageDepartmentPage = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button type="primary" danger>
+            <Button
+              onClick={() => deleteHandler(data?.id)}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </>
