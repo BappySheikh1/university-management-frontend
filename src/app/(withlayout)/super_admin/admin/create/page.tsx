@@ -11,12 +11,27 @@ import {
   bloodGroupOptions,
   genderOptions,
 } from "@/constants/global";
+import { useDepartmentQuery } from "@/redux/api/departmentApi";
 import { adminSchema } from "@/schemas/admin";
+import { IDepartment } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row } from "antd";
 import React from "react";
 
 const CreateAdminPage = () => {
+  const { data, isLoading } = useDepartmentQuery({ limit: 100, page: 1 });
+
+  // @ts-ignore
+  const departments: IDepartment[] = data?.departments;
+
+  const departmentOptions =
+    departments &&
+    departments?.map((department) => {
+      return {
+        label: department?.title,
+        value: department?.id,
+      };
+    });
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
@@ -143,7 +158,7 @@ const CreateAdminPage = () => {
                 <FormSelectField
                   size="large"
                   name="admin.managementDepartment"
-                  options={DepartmentOptions}
+                  options={departmentOptions}
                   label="Department"
                   placeholder="Select"
                 />
