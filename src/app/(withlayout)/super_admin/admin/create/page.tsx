@@ -11,15 +11,17 @@ import {
   bloodGroupOptions,
   genderOptions,
 } from "@/constants/global";
+import { useAddAdminWithFormDataMutation } from "@/redux/api/adminApi";
 import { useDepartmentQuery } from "@/redux/api/departmentApi";
 import { adminSchema } from "@/schemas/admin";
 import { IDepartment } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import React from "react";
 
 const CreateAdminPage = () => {
   const { data, isLoading } = useDepartmentQuery({ limit: 100, page: 1 });
+  const [addAdminWithFormData] = useAddAdminWithFormDataMutation();
 
   // @ts-ignore
   const departments: IDepartment[] = data?.departments;
@@ -32,9 +34,18 @@ const CreateAdminPage = () => {
         value: department?.id,
       };
     });
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (values: any) => {
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj[file];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+    message.loading("Creating.....");
     try {
-      console.log(data);
+      await addAdminWithFormData(formData);
+      message.success("Admin Created Successfully");
     } catch (error) {
       console.error(error);
     }
